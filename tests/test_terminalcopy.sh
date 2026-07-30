@@ -17,6 +17,17 @@ test_redact_secret() {
   [[ "$out" != *"topsecret"* ]]
 }
 
+test_ai_formats_command_output() {
+  local out
+  local tempdir
+  tempdir="$(mktemp -d)"
+  mkdir -p "${tempdir}/dev/AI_corp/knn-funda"
+  out="$(HOME="$tempdir" zsh -c "cd '$tempdir/dev/AI_corp/knn-funda' && source '$ROOT_DIR/terminalcopy.zsh'; ai pwd")"
+  [[ "$out" == *'```terminal'* ]]
+  [[ "$out" == *'% pwd'* ]]
+  [[ "$out" == *'~/dev/AI_corp/knn-funda'* ]]
+}
+
 test_idempotent_install_block() {
   local tempdir
   tempdir="$(mktemp -d)"
@@ -32,6 +43,7 @@ test_idempotent_install_block() {
 
 test_mask_home
 test_redact_secret
+test_ai_formats_command_output
 test_idempotent_install_block
 
 print "All tests passed."

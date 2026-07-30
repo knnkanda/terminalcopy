@@ -1,17 +1,23 @@
 #!/usr/bin/env zsh
 set -euo pipefail
 
-SCRIPT_DIR="${0:A:h}"
-SOURCE_FILE="${SCRIPT_DIR}/terminalcopy.zsh"
+REPO_URL="https://raw.githubusercontent.com/knnkanda/terminalcopy/main/terminalcopy.zsh"
+INSTALL_DIR="${HOME}/.terminalcopy"
+INSTALLED_SOURCE="${INSTALL_DIR}/terminalcopy.zsh"
 TARGET_RC="${HOME}/.zshrc"
 BACKUP_FILE="${TARGET_RC}.terminalcopy.backup.$(date +%Y%m%d%H%M%S)"
 MARKER_START="# >>> TerminalCopy >>>"
 MARKER_END="# <<< TerminalCopy <<<"
 
-if [[ ! -f "$SOURCE_FILE" ]]; then
-  print -u2 "terminalcopy.zsh not found next to install.sh"
-  exit 1
+mkdir -p "$INSTALL_DIR"
+
+if [[ -f "${0:A:h}/terminalcopy.zsh" ]]; then
+  cp "${0:A:h}/terminalcopy.zsh" "$INSTALLED_SOURCE"
+else
+  curl -fsSL "$REPO_URL" -o "$INSTALLED_SOURCE"
 fi
+
+chmod 600 "$INSTALLED_SOURCE"
 
 if [[ -f "$TARGET_RC" ]]; then
   cp "$TARGET_RC" "$BACKUP_FILE"
@@ -32,10 +38,11 @@ rm -f "$tmpfile"
 {
   print -r -- ""
   print -r -- "$MARKER_START"
-  print -r -- "source \"${SOURCE_FILE}\""
+  print -r -- "source \"${INSTALLED_SOURCE}\""
   print -r -- "$MARKER_END"
 } >> "$TARGET_RC"
 
-print "Installed TerminalCopy."
-print "Backed up your existing zshrc to: $BACKUP_FILE"
+print "TerminalCopy is ready."
+print "Your existing ~/.zshrc was backed up to: $BACKUP_FILE"
+print "The loaded source file is: $INSTALLED_SOURCE"
 print "Open a new terminal or run: source ~/.zshrc"

@@ -2,11 +2,12 @@
 set -euo pipefail
 
 TARGET_RC="${HOME}/.zshrc"
+INSTALL_DIR="${HOME}/.terminalcopy"
 MARKER_START="# >>> TerminalCopy >>>"
 MARKER_END="# <<< TerminalCopy <<<"
 
 if [[ ! -f "$TARGET_RC" ]]; then
-  print "No ~/.zshrc found."
+  print "No ~/.zshrc was found, so there was nothing to remove."
   exit 0
 fi
 
@@ -19,4 +20,9 @@ awk -v start="$MARKER_START" -v end="$MARKER_END" '
 cat "$tmpfile" > "$TARGET_RC"
 rm -f "$tmpfile"
 
-print "Removed TerminalCopy from ~/.zshrc."
+if [[ -d "$INSTALL_DIR" ]]; then
+  rm -rf "$INSTALL_DIR"
+fi
+
+print "TerminalCopy has been removed from ~/.zshrc."
+print "The local source folder was removed from: $INSTALL_DIR"
