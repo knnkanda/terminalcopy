@@ -114,6 +114,10 @@ Or, from a local clone:
 
 https://qiita.com/knnkanda/items/22db36175cdbce44d1ab
 
+## Homebrew
+
+Homebrew support is being prepared. The current plan is to ship TerminalCopy as a tap-based formula so you can install it with Homebrew and then load the shell integration from your `.zshrc`.
+
 ## Author
 
 Paul Kanda / KandaNewsNetwork, Inc.
