@@ -71,6 +71,19 @@ ash
 - `as4` to `as9`: copy the last 4 to 9 history entries
 - `ash`: copy your full shell history
 
+Examples:
+
+```terminal
+Machine : pk_mini
+Folder  : ~/dev/AI_corp/knn-funda
+
+History (cleaned)
+
+pwd
+ls
+git status
+```
+
 ## Safety
 
 TerminalCopy tries to keep your output safe to share.
@@ -175,6 +188,19 @@ ash
 - `as`: 直近 3 件の履歴をコピーする
 - `as4` から `as9`: 直近 4 件から 9 件の履歴をコピーする
 - `ash`: シェル履歴全体をコピーする
+
+例:
+
+```terminal
+Machine : pk_mini
+Folder  : ~/dev/AI_corp/knn-funda
+
+History (cleaned)
+
+pwd
+ls
+git status
+```
 
 ### 安全
 

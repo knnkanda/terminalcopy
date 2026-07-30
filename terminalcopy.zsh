@@ -59,9 +59,11 @@ terminalcopy__capture_full_history() {
 terminalcopy__history_clean() {
   local input="${1:-}"
   print -r -- "$input" \
+    | perl -0pe 's/\\n/\n/g' \
     | sed 's/^[[:space:]]*[0-9][0-9]*[[:space:]]*//' \
     | sed '/^[[:space:]]*$/d' \
     | sed '/^[[:space:]]*#/d' \
+    | sed '/^pk_mini[[:space:]]*#/d' \
     | sed '/^zsh: command not found:/d'
 }
 
